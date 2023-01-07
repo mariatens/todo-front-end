@@ -1,4 +1,4 @@
-import { View } from "./App";
+import { View } from "../App";
 
 interface NavBarProps {
   setView: React.Dispatch<React.SetStateAction<View>>;

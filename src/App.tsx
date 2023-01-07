@@ -1,8 +1,8 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { NavBar } from "./NavBar";
-import { Input } from "./Input";
+import { NavBar } from "./components/NavBar";
+import { Input } from "./components/Input";
 
 interface ITask {
   task: string;

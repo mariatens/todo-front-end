@@ -106,6 +106,10 @@ function App(): JSX.Element {
                   {/* button to mark as complete*/}
                   <button
                     onClick={async () => {
+                      await axios.delete(
+                        `https://mariatens-todo-sql-backend.onrender.com/tasks/${task.id}`
+                      );
+                      await fetchTasks();
                       await axios.post(
                         "https://mariatens-todo-sql-backend.onrender.com/completed-tasks",
                         {
@@ -113,11 +117,8 @@ function App(): JSX.Element {
                           time: new Date().toISOString().substring(1, 10),
                         }
                       );
-                      fetchTasks();
-                      await axios.delete(
-                        `https://mariatens-todo-sql-backend.onrender.com/tasks/${task.id}`
-                      );
-                      fetchCompletedTasks();
+                      
+                      await fetchCompletedTasks();
                     }}
                   >
                     ✔️

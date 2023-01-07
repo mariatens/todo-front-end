@@ -8,6 +8,13 @@ export function Input({input, handleEnter, handleToDoInput}: InputProps): JSX.El
     return (
 <div className="input-div">
           <textarea
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault()
+              handleEnter();
+              console.log("key working");
+            }
+          }}
             className="inputBox"
             placeholder="Write your task here"
             value={input}
@@ -16,15 +23,9 @@ export function Input({input, handleEnter, handleToDoInput}: InputProps): JSX.El
             }}
           ></textarea>
           <span>
-            <button
+            <button tabIndex = {0}
               className="add-button"
               onClick={handleEnter}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleEnter();
-                  console.log("key working");
-                }
-              }}
             >
               <span className="plus-sign">+</span>
             </button>

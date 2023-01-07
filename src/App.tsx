@@ -54,7 +54,11 @@ function App(): JSX.Element {
     return (
       <>
         <NavBar setView={setView} />
-        <Input handleEnter={handleEnter} handleToDoInput={handleToDoInput} input={input}/>
+        <Input
+          handleEnter={handleEnter}
+          handleToDoInput={handleToDoInput}
+          input={input}
+        />
         <div className="task-ctn">
           {/* saved todos */}
           {tasks &&
@@ -117,7 +121,7 @@ function App(): JSX.Element {
                           time: new Date().toISOString().substring(1, 10),
                         }
                       );
-                      
+
                       await fetchCompletedTasks();
                     }}
                   >
@@ -133,7 +137,11 @@ function App(): JSX.Element {
     return (
       <>
         <NavBar setView={setView} />
-        <Input handleEnter={handleEnter} handleToDoInput={handleToDoInput} input={input}/>
+        <Input
+          handleEnter={handleEnter}
+          handleToDoInput={handleToDoInput}
+          input={input}
+        />
         <h2 className="title">Completed tasks</h2>
         <div className="task-ctn">
           {completedTasks.map((compTask) => (

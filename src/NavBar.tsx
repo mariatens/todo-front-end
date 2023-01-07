@@ -11,7 +11,7 @@ export function NavBar({ setView }: NavBarProps): JSX.Element {
         To Do Tasks
       </button>
       <button className="navbar-btns" onClick={() => setView("CompletedTasks")}>
-        Completed Tasks |{" "}
+        Completed Tasks{" "}
       </button>
       <h1 className="title" onClick={() => setView("TodoTasks")}>
         {" "}

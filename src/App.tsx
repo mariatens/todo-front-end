@@ -14,7 +14,7 @@ export type View = "TodoTasks" | "CompletedTasks";
 function App(): JSX.Element {
   const [input, setInput] = useState<string>("");
   const [tasks, setTasks] = useState<ITask[]>([]);
-  const [editedText, setEditedText] = useState<string>();
+  const [editedTask, setEditedTask] = useState<string>("");
   const [completedTasks, setCompletedTasks] = useState<ITask[]>([]);
   const [contentEditable, setContentEditable] = useState(false);
   const [view, setView] = useState<View>("TodoTasks");
@@ -50,6 +50,14 @@ function App(): JSX.Element {
     await fetchTasks();
     setInput("");
   };
+  const handleSubmitEdit = async (task: ITask) => {
+    setContentEditable(false);
+    await axios.patch(
+        `https://mariatens-todo-sql-backend.onrender.com/tasks/${task.id}`,
+      { task: editedTask })
+    await fetchTasks();
+    }
+
   if (view === "TodoTasks") {
     return (
       <>
@@ -85,28 +93,18 @@ function App(): JSX.Element {
                   >
                     🗑️
                   </button>
-                  {/* button to change  */}
+                  {/* button to edit  */}
+                  {contentEditable ? (
+                    <>
+                   <input
+                   value={editedTask}
+                   onChange={(e) => setEditedTask(e.target.value)}
+                 /> 
+                 <button onClick = {()=>handleSubmitEdit(task)}> Update</button></>) : 
                   <button
-                    onClick={async () => {
-                      setContentEditable(!contentEditable);
-                      const container = document.getElementById(
-                        String(task.id)
-                      );
-                      if (container?.textContent) {
-                        await axios.patch(
-                          `https://mariatens-todo-sql-backend.onrender.com/tasks/${task.id}`,
-                          { task: container?.textContent }
-                        );
-                        setEditedText(container.textContent);
-                        if (editedText) {
-                          //if text edited, display it
-                          task.task = editedText;
-                        }
-                      }
-                    }}
+                    onClick={()=>setContentEditable(true)}
                   >
-                    ✍️
-                  </button>
+                    ✍️</button>}
                   {/* button to mark as complete*/}
                   <button
                     onClick={async () => {

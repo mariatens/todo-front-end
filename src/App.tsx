@@ -54,10 +54,11 @@ function App(): JSX.Element {
   const handleSubmitEdit = async (task: ITask) => {
     setContentEditable(false);
     await axios.patch(
-        `https://mariatens-todo-sql-backend.onrender.com/tasks/${task.id}`,
-      { task: editedTask })
+      `https://mariatens-todo-sql-backend.onrender.com/tasks/${task.id}`,
+      { task: editedTask }
+    );
     await fetchTasks();
-    }
+  };
 
   if (view === "TodoTasks") {
     return (
@@ -72,8 +73,21 @@ function App(): JSX.Element {
           {/* saved todos */}
           {tasks &&
             tasks.map((task) => (
-              <TaskView editedTask={editedTask} setEditedTask = {setEditedTask}setContentEditable={setContentEditable} handleSubmitEdit={handleSubmitEdit} key={task.id} contentEditable={contentEditable} fetchCompletedTasks={fetchCompletedTasks} fetchTasks={fetchTasks} task={task}/>))}
-  </div></>)
+              <TaskView
+                editedTask={editedTask}
+                setEditedTask={setEditedTask}
+                setContentEditable={setContentEditable}
+                handleSubmitEdit={handleSubmitEdit}
+                key={task.id}
+                contentEditable={contentEditable}
+                fetchCompletedTasks={fetchCompletedTasks}
+                fetchTasks={fetchTasks}
+                task={task}
+              />
+            ))}
+        </div>
+      </>
+    );
   } else {
     return (
       <>

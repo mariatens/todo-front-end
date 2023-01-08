@@ -78,20 +78,6 @@ function App(): JSX.Element {
                 >
                   {task.task}
                 </div>
-                <div className="btn-ctn">
-                  <small className="time"> {task.time.slice(0,10)}</small>
-                  {/* button to delete */}
-                  <button
-                    className="del-btn"
-                    onClick={async () => {
-                      await axios.delete(
-                        `https://mariatens-todo-sql-backend.onrender.com/tasks/${task.id}`
-                      );
-                      fetchTasks();
-                    }}
-                  >
-                    🗑️
-                  </button>
                   {/* button to edit  */}
                   {contentEditable ? (
                     <>
@@ -101,9 +87,12 @@ function App(): JSX.Element {
                  /> 
                  <button onClick = {()=>handleSubmitEdit(task)}> Update</button></>) : 
                   <button
-                    onClick={()=>setContentEditable(true)}
-                  >
-                    ✍️</button>}
+                  onClick={()=>setContentEditable(true)}
+                >
+                  ✍️</button>}
+                    <div className="btn-ctn">
+                  <small className="time"> {task.time.slice(0,10)}</small>
+                  
                   {/* button to mark as complete*/}
                   <button
                     onClick={async () => {
@@ -123,6 +112,18 @@ function App(): JSX.Element {
                     }}
                   >
                     ✔️
+                  </button>
+                  {/* button to delete */}
+                  <button
+                    className="del-btn"
+                    onClick={async () => {
+                      await axios.delete(
+                        `https://mariatens-todo-sql-backend.onrender.com/tasks/${task.id}`
+                      );
+                      fetchTasks();
+                    }}
+                  >
+                    🗑️
                   </button>
                 </div>
               </div>

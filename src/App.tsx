@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { NavBar } from "./components/NavBar";
 import { Input } from "./components/Input";
+import { TaskView } from "./components/TaskView";
 
-interface ITask {
+export interface ITask {
   task: string;
   id: number;
   time: string;
@@ -71,66 +72,8 @@ function App(): JSX.Element {
           {/* saved todos */}
           {tasks &&
             tasks.map((task) => (
-              <div className="task" key={task.id}>
-                <div
-                  className="task-txt"
-                  id={String(task.id)}
-                >
-                  {task.task}
-                </div>
-                  {/* button to edit  */}
-                  {contentEditable ? (
-                    <>
-                   <input
-                   value={editedTask}
-                   onChange={(e) => setEditedTask(e.target.value)}
-                 /> 
-                 <button onClick = {()=>handleSubmitEdit(task)}> Update</button></>) : 
-                  <button
-                  onClick={()=>setContentEditable(true)}
-                >
-                  ✍️</button>}
-                    <div className="btn-ctn">
-                  <small className="time"> {task.time.slice(0,10)}</small>
-                  
-                  {/* button to mark as complete*/}
-                  <button
-                    onClick={async () => {
-                      await axios.delete(
-                        `https://mariatens-todo-sql-backend.onrender.com/tasks/${task.id}`
-                      );
-                      await fetchTasks();
-                      await axios.post(
-                        "https://mariatens-todo-sql-backend.onrender.com/completed-tasks",
-                        {
-                          task: task.task,
-                          time: new Date().toISOString().substring(1, 10),
-                        }
-                      );
-
-                      await fetchCompletedTasks();
-                    }}
-                  >
-                    ✔️
-                  </button>
-                  {/* button to delete */}
-                  <button
-                    className="del-btn"
-                    onClick={async () => {
-                      await axios.delete(
-                        `https://mariatens-todo-sql-backend.onrender.com/tasks/${task.id}`
-                      );
-                      fetchTasks();
-                    }}
-                  >
-                    🗑️
-                  </button>
-                </div>
-              </div>
-            ))}
-        </div>
-      </>
-    );
+              <TaskView editedTask={editedTask} setEditedTask = {setEditedTask}setContentEditable={setContentEditable} handleSubmitEdit={handleSubmitEdit} key={task.id} contentEditable={contentEditable} fetchCompletedTasks={fetchCompletedTasks} fetchTasks={fetchTasks} task={task}/>))}
+  </div></>)
   } else {
     return (
       <>

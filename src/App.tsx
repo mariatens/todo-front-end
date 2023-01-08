@@ -7,7 +7,7 @@ import { Input } from "./components/Input";
 interface ITask {
   task: string;
   id: number;
-  time: Date;
+  time: string;
 }
 export type View = "TodoTasks" | "CompletedTasks";
 
@@ -75,12 +75,11 @@ function App(): JSX.Element {
                 <div
                   className="task-txt"
                   id={String(task.id)}
-                  contentEditable={contentEditable}
                 >
                   {task.task}
                 </div>
                 <div className="btn-ctn">
-                  <small className="time"> {task.time}</small>
+                  <small className="time"> {task.time.slice(0,10)}</small>
                   {/* button to delete */}
                   <button
                     className="del-btn"

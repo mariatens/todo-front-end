@@ -1,27 +1,31 @@
 import axios from "axios";
+import { useState } from "react";
 import { ITask } from "../App";
 
 interface TaskViewProps {
   editedTask: string;
   task: ITask;
   setEditedTask: React.Dispatch<React.SetStateAction<string>>;
-  contentEditable: boolean;
   fetchTasks: () => Promise<void>;
-  setContentEditable: React.Dispatch<React.SetStateAction<boolean>>;
   fetchCompletedTasks: () => Promise<void>;
-  handleSubmitEdit: (task: ITask) => Promise<void>;
 }
 
 export function TaskView({
   setEditedTask,
-  handleSubmitEdit,
   editedTask,
   task,
-  contentEditable,
   fetchTasks,
   fetchCompletedTasks,
-  setContentEditable,
 }: TaskViewProps): JSX.Element {
+  const [contentEditable, setContentEditable] = useState(false);
+  const handleSubmitEdit = async (task: ITask) => {
+    setContentEditable(false);
+    await axios.patch(
+      `https://mariatens-todo-sql-backend.onrender.com/tasks/${task.id}`,
+      { task: editedTask }
+    );
+    await fetchTasks();
+  };
   return (
     <div className="task" key={task.id}>
       <div className="task-txt" id={String(task.id)}>

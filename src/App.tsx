@@ -17,7 +17,6 @@ function App(): JSX.Element {
   const [tasks, setTasks] = useState<ITask[]>([]);
   const [editedTask, setEditedTask] = useState<string>("");
   const [completedTasks, setCompletedTasks] = useState<ITask[]>([]);
-  const [contentEditable, setContentEditable] = useState(false);
   const [view, setView] = useState<View>("TodoTasks");
 
   const fetchTasks = async () => {
@@ -51,14 +50,7 @@ function App(): JSX.Element {
     await fetchTasks();
     setInput("");
   };
-  const handleSubmitEdit = async (task: ITask) => {
-    setContentEditable(false);
-    await axios.patch(
-      `https://mariatens-todo-sql-backend.onrender.com/tasks/${task.id}`,
-      { task: editedTask }
-    );
-    await fetchTasks();
-  };
+  
 
   if (view === "TodoTasks") {
     return (
@@ -76,10 +68,7 @@ function App(): JSX.Element {
               <TaskView
                 editedTask={editedTask}
                 setEditedTask={setEditedTask}
-                setContentEditable={setContentEditable}
-                handleSubmitEdit={handleSubmitEdit}
                 key={task.id}
-                contentEditable={contentEditable}
                 fetchCompletedTasks={fetchCompletedTasks}
                 fetchTasks={fetchTasks}
                 task={task}

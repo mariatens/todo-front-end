@@ -42,6 +42,9 @@
 .task-txt {
   display: block;
 }
+.edit-input{
+  width: 80%;
+}
 .btn-ctn {
   position: absolute;
   bottom: 0;

@@ -25,6 +25,7 @@ export function TaskView({
       { task: editedTask }
     );
     await fetchTasks();
+    setEditedTask("")
   };
   return (
     <div className="task" key={task.id}>
@@ -34,11 +35,13 @@ export function TaskView({
       {/* button to edit  */}
       {contentEditable ? (
         <>
-          <input
+          <input className = "edit-input"
             value={editedTask}
             onChange={(e) => setEditedTask(e.target.value)}
           />
-          <button onClick={() => handleSubmitEdit(task)}> Update</button>
+          <button
+            disabled = {editedTask === ""} 
+            onClick={() => handleSubmitEdit(task)}> Update</button>
         </>
       ) : (
         <button onClick={() => setContentEditable(true)}>✍️</button>

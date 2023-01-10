@@ -45,7 +45,7 @@
 .btn-ctn {
   position: absolute;
   bottom: 0;
-  float: left;
+  right:0;
 }
 
 .add-button {
